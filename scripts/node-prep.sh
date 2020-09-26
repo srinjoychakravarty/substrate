@@ -1,12 +1,10 @@
-#!/bin/bash
-
-sudo add-apt-repository ppa:webupd8team/terminix
 sudo apt update -y
 sudo apt upgrade -y
 sudo apt dist-upgrade -y
 sudo apt install curl -y
 sudo apt install tilix -y
 sudo update-alternatives --config x-terminal-emulator
+2
 
 curl https://getsubstrate.io -sSf | bash -s -- --fast
 
@@ -15,7 +13,6 @@ source ~/.cargo/env
 
 rustup update
 cargo --version
-cargo update -p parity-scale-codec-derive
 
 rustup target add wasm32-unknown-unknown --toolchain nightly
 OR
@@ -23,13 +20,15 @@ rustup target add wasm32-unknown-unknown --toolchain stable
 
 rustup component add rust-src --toolchain nightly
 
-rustup toolchain install nightly-2020-06-01
+rustup toolchain install nightly-2020-06-01 [works with flipper*]
 OR
-rustup toolchain install nightly-2020-07-12
+rustup toolchain install nightly-2020-07-12 [doesn't work with flipper]
 
 rustup show
 
 rustup default nightly-2020-07-12-x86_64-unknown-linux-gnu
+
+rustup show
 
 rustup target add wasm32-unknown-unknown --toolchain nightly-2020-06-01
 OR
@@ -70,6 +69,14 @@ cargo +nightly-2020-07-12 install node-cli --git https://github.com/paritytech/s
 cargo install cargo-contract --vers 0.6.2 --force
 OR
 cargo install cargo-contract --vers 0.6.1
+
+>> Compiling parity-scale-codec v1.3.5
+
+cargo contract new flipper
+cd flipper
+cargo +nightly test
+
+>> Compiling parity-scale-codec-derive v1.2.2
 
 tilix -a session-add-down -x "./target/release/node-template --dev --tmp"
 cd ..
